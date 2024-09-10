@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a38acaa2.css",
+    "main.js": "/static/js/main.78588d57.js",
+    "static/js/453.93f1ff04.chunk.js": "/static/js/453.93f1ff04.chunk.js",
+    "static/media/cover.png": "/static/media/cover.24eee3bd6b2b51de0886.png",
+    "static/media/bkg-magenta-desktop.png": "/static/media/bkg-magenta-desktop.b85f90a57e64be06c69d.png",
+    "static/media/bkg-violet-desktop.png": "/static/media/bkg-violet-desktop.66e24b750715ae25260b.png",
+    "static/media/bkg-magenta-mobile.png": "/static/media/bkg-magenta-mobile.d166157558e2fd305f1a.png",
+    "static/media/bkg-violet-mobile.png": "/static/media/bkg-violet-mobile.0d9c061c7ece4383e261.png",
+    "static/media/brsonoma-semibold-bf654c45268c340-webfont.woff": "/static/media/brsonoma-semibold-bf654c45268c340-webfont.d3cf3e95efc7d1d4bcb7.woff",
+    "static/media/brsonoma-bold-bf654c4526823f5-webfont.woff": "/static/media/brsonoma-bold-bf654c4526823f5-webfont.b2ae5009bfd6363c763a.woff",
+    "static/media/brsonoma-regular-bf654c45266c042-webfont.woff": "/static/media/brsonoma-regular-bf654c45266c042-webfont.4a408029b4969f937c58.woff",
+    "static/media/brsonoma-semibold-bf654c45268c340-webfont.woff2": "/static/media/brsonoma-semibold-bf654c45268c340-webfont.ab4a1fc600040add4a46.woff2",
+    "static/media/brsonoma-bold-bf654c4526823f5-webfont.woff2": "/static/media/brsonoma-bold-bf654c4526823f5-webfont.5d0c86fa70133f5eb502.woff2",
+    "static/media/brsonoma-regular-bf654c45266c042-webfont.woff2": "/static/media/brsonoma-regular-bf654c45266c042-webfont.13cd3fb9734912fefff8.woff2",
+    "static/media/IcAddUserLight.svg": "/static/media/IcAddUserLight.6c683f40a0bc02c8f5bf90634cf5f83a.svg",
+    "static/media/logo.svg": "/static/media/logo.6da6094b20e616a695645788b5edca92.svg",
+    "static/media/logo2.svg": "/static/media/logo2.5ac603b29c0adff5a2d27ec14ae400fd.svg",
+    "static/media/phone.svg": "/static/media/phone.8674b379b2e4838d511f0e23c67934d8.svg",
+    "index.html": "/index.html",
+    "main.a38acaa2.css.map": "/static/css/main.a38acaa2.css.map",
+    "main.78588d57.js.map": "/static/js/main.78588d57.js.map",
+    "453.93f1ff04.chunk.js.map": "/static/js/453.93f1ff04.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a38acaa2.css",
+    "static/js/main.78588d57.js"
+  ]
+}
