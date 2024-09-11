@@ -17,22 +17,6 @@ import { setFormData1 } from '../../redux/formSlice';
 import { AppDispatch } from '../../redux/store';
 import InputCheckRegular from '../atoms/InputCheckRegular';
 import InputCheckNative from '../atoms/InputCheckNative';
-import InputTextNative from '../atoms/InputTextNative';
-import SelectNative from '../atoms/SelectNative';
-import ButtonNative from '../atoms/ButtonNative';
-
-const FormStyled = styled.form`
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
-    span{
-        font-size: 12px;
-        color: #ff1c44;
-        padding: 10px 0px;
-        display: flex;
-    }
-`;
-
 
 const StructureLayoutStyled = styled.div`
     display: grid;
@@ -56,8 +40,8 @@ const ItemAStyled = styled.div`
 const ItemBStyled = styled.div`
     grid-column: 2;
     grid-row: 1;
-    margin-bottom: -100px !important;
-    max-width: 352px;
+    margin-botom: -100px !important;
+
 
     @media (max-width: 767px) {
       grid-column: 1;
@@ -66,36 +50,14 @@ const ItemBStyled = styled.div`
 const ItemCStyled = styled.div`
     grid-column: 2;
     grid-row: 2;
-    max-width: 352px;
-    padding-top: -200px !important;
+    margin-top: -100px !important;
 
     @media (max-width: 767px) {
       grid-column: 1 / span 2;
     }
 `;
 
-const MixedComponentStyled = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: row;
 
-    & > div:first-child{
-       width: 40%;
-    }
-
-    & > div:last-child{
-      width: 60%;
-    }
-
-    select{
-      border-radius: 8px 0px 0px 8px!important;
-      border-right: 0px !important;
-    }
-
-    input{
-      border-radius: 0 8px 8px 0 !important;
-    }
-`;
 
 
 const schema = yup.object().shape({
@@ -121,19 +83,24 @@ const QuotationFormPage: React.FC = () => {
   const navigate = useNavigate();
 
   const dispatch: AppDispatch = useDispatch();
-  const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+    checkbox1: false,
+    checkbox2: false,
+  },
     resolver: yupResolver(schema),
   });
-
-
-
 
   const onSubmit = (data: any) => {
     console.log('Datos del formulario:', data);
     navigate('/planes');
 
 
-    setCurrentData({ ...currentData, typedoc: data.tipoDocumento, numdoc: data.numdoc, celular: data.celular });
+    setCurrentData({ ...currentData, typedoc: data.tipoDocumento });
     console.log(currentData);
     dispatch(setFormData1(currentData));
   };
@@ -153,65 +120,114 @@ const QuotationFormPage: React.FC = () => {
             alt="Familia feliz"
           />
         </ItemAStyled>
+        <ItemBStyled>
+          <FeaturedTag text="Seguro Salud Flexible" />
+          <HeadingTitle text="Creado para ti y tu familia" />
+        </ItemBStyled>
         <ItemCStyled>
+          <Typography variant="body1" gutterBottom>
+            Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra asesoría. 100% online.
+          </Typography>
 
 
-
-          <FormStyled onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <FeaturedTag text="Seguro Salud Flexible" />
-              <HeadingTitle text="Creado para ti y tu familia" />
-              <Typography variant="body1" gutterBottom>
-                Tú eliges cuánto pagar. Ingresa tus datos, cotiza y recibe nuestra asesoría. 100% online.
-              </Typography>
-            </div>
-            <div>
-              <MixedComponentStyled className='inputTextNative--mixed  selectNative--mixed'>
-                <SelectNative>
-                  <select {...register('tipoDocumento')}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="tipoDocumento"
+              control={control}
+              defaultValue="dni"
+              render={({ field }) => (
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="tipoDocumento-label">Tipo de Documento</InputLabel>
+                  <select
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setCurrentData({ ...currentData, typedoc: e.target.value });
+                    }}
+                  >
                     <option value="dni">DNI</option>
                     <option value="ruc">RUC</option>
+
                   </select>
-                </SelectNative>
+                </FormControl>
+              )}
+            />
 
-                <InputTextNative>
-                  <label htmlFor='numeroDocumento'>Nro de Documento</label>
-                  <input  {...register('numeroDocumento')} onChange={async (e: any) => {
-                    const value = e.target.value;
-                    setValue('numeroDocumento', value);
-                    await trigger('numeroDocumento');
+            <Controller
+              name="numeroDocumento"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Número de Documento"
+                  error={!!errors.numeroDocumento}
+                  helperText={errors.numeroDocumento?.message}
+                  fullWidth
+                  margin="normal"
+
+                  onChange={(e) => {
+                    field.onChange(e);
                     setCurrentData({ ...currentData, numdoc: e.target.value });
-                  }} />
+                  }}
+                />
+              )}
+            />
 
-                </InputTextNative>
-              </MixedComponentStyled>
-              {errors.numeroDocumento && <span>{errors.numeroDocumento.message}</span>}
-              <InputTextNative>
-                <label htmlFor='numeroCelular'>Celular</label>
-                <input {...register('numeroCelular')} onChange={async (e: any) => {
-                  const value = e.target.value;
-                  setValue('numeroCelular', value);
-                  await trigger('numeroCelular');
-                  setCurrentData({ ...currentData, celular: e.target.value });
-                }} />
-                {errors.numeroCelular && <span>{errors.numeroCelular.message}</span>}
-              </InputTextNative>
-            </div>
-            <div>
-              <InputCheckNative>
-                <input type="checkbox" {...register('checkbox1')} />
-                <label htmlFor='checkbox1'>Acepto la politica de privacidad</label>
-              </InputCheckNative>
-              {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
-              <InputCheckNative>
-                <input type="checkbox" {...register('checkbox2')} />
-                <label htmlFor='checkbox2'>Acepto la politica de comunicaciones comerciales</label>
-              </InputCheckNative>
-              <a href="./">Aplican terminos y condiciones</a>
-              {errors.checkbox2 && <span>{errors.checkbox2.message}</span>}
-            </div>
-            <div><ButtonNative type="submit" value='Cotiza aquí' /></div>
-          </FormStyled>
+            <Controller
+              name="numeroCelular"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Celular"
+                  error={!!errors.numeroCelular}
+                  helperText={errors.numeroCelular?.message}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setCurrentData({ ...currentData, celular: e.target.value });
+                  }}
+                />
+              )}
+            />
+
+            <Controller
+              name="checkbox1"
+              control={control}
+              defaultValue={false}
+              render={({ field }) => (
+<InputCheckNative>
+  <Input type="checkbox" {...field} id="cb2" name="checkbox1" />
+  <label htmlFor="cb2">
+    adasd
+  </label>
+</InputCheckNative>
+              )}
+            />
+            {errors.checkbox1 && <p style={{ color: 'red' }}>{errors.checkbox1.message}</p>}
+
+            <Controller
+              name="checkbox2"
+              control={control}
+              defaultValue={false}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={<Checkbox {...field} checked={field.value} />}
+                  label="Checkbox 2 (Obligatorio)"
+                />
+              )}
+            />
+            {errors.checkbox2 && <p style={{ color: 'red' }}>{errors.checkbox2.message}</p>}
+
+            <Box mt={2}>
+              <ButtonRegular type="submit">
+                cotiza aqui
+              </ButtonRegular>
+            </Box>
+          </form>
 
 
 

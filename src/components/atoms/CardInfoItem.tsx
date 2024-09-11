@@ -24,6 +24,7 @@ const CardInfoItemStyled = styled(Card)`
   box-sizing: border-box;
   justify-content: start;
   gap: 8px;
+  justify-content: space-around;
 
   &.selected {
     background-color: #ffffff;

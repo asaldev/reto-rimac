@@ -7,7 +7,7 @@ interface HeadingTitlerProps {
 }
 
 
-const HeadingTitletStyled =  styled(Typography)`
+const HeadingTitletStyled =  styled.div`
     width: 100%;
     font-family: 'br_sonomabold', sans-serif;
     font-size: 32px;
